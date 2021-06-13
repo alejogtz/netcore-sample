@@ -1,0 +1,7 @@
+.config/
+.vs/
+appsettings.Production.json
+bin/
+obj/
+storage/
+Properties/
