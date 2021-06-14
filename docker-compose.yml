@@ -1,0 +1,10 @@
+version: "3.3"  # optional since v1.27.0
+services:
+  net-core-sample:
+    container_name: api-net-core
+    build: .
+    ports:
+      - 443:443
+      - 80:80
+    external_links:
+       - long_running_service:postgres-docker-network
