@@ -1,7 +1,8 @@
 .config/
 .vs/
 appsettings.Production.json
+appsettings.Development.json
 bin/
 obj/
 storage/
-Properties/
+Properties/
