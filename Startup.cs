@@ -39,7 +39,7 @@ namespace FilemanagerDemo
             /* ---------------------------------------------
              *              SWAGGER
              * --------------------------------------------- */
-            services.AddSwaggerGen(a => a.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "My API", Version = "v1" }));
+            //services.AddSwaggerGen(a => a.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "My API", Version = "v1" }));
 
             /* ---------------------------------------------
              *              DI (DEPENDENCY INJECTION)
@@ -64,8 +64,8 @@ namespace FilemanagerDemo
                 /**
                  * SWAGGER CONFIGURATION
                  */
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Version 1"));
+                //app.UseSwagger();
+                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Version 1"));
             }
 
             app.UseHttpsRedirection();

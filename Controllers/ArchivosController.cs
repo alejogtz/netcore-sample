@@ -1,4 +1,7 @@
 ﻿using FilemanagerDemo.Aplicacion.Models;
+using FilemanagerDemo.Archivos.Core;
+using FilemanagerDemo.Archivos.Infraestructure;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System;
@@ -90,6 +93,48 @@ namespace FilemanagerDemo.Controllers
                 return Ok();
             }
             return NotFound("¡Archivo no encontrado!");
+        }
+
+        [HttpPost]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        [Produces("application/pdf")]
+        [Route("Firmar")]
+        public ActionResult Sign([FromForm] string password, [FromForm] PropertiesDocument properties)
+        {
+            try
+            {
+                var file = Request.Form.Files[0] ?? throw new Exception("¡PDF Document missing!"); ;
+                var pfx = Request.Form.Files[1] ?? throw new Exception("¡KeyStore missing!"); ;
+                var image = Request.Form.Files[2] ?? throw new Exception("¡Stamping Image missing!");
+
+                MemoryStream response = new MemoryStream();
+                MemoryStream stream = new MemoryStream();
+                MemoryStream streampfx = new MemoryStream();
+                MemoryStream imagestream = new MemoryStream();
+
+                file.CopyTo(stream);
+                pfx.CopyTo(streampfx);
+                image.CopyTo(imagestream);
+                stream.Position = 0;
+                streampfx.Position = 0;
+                imagestream.Position = 0;
+
+
+                Org.BouncyCastle.Pkcs.Pkcs12Store pk12 = new Org.BouncyCastle.Pkcs.Pkcs12Store(streampfx, password.ToCharArray());
+
+                IPdfSigner pdfSigner = new CustomPdfSigner();
+                properties.image = Convert.ToBase64String(imagestream.ToArray());
+                pdfSigner.Firmar(stream, response, pk12, properties);
+
+                return File(new MemoryStream(response.ToArray()), "application/pdf", "download.pdf");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
+
         }
     }
 }

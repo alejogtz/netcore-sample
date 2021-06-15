@@ -1,14 +1,12 @@
 ﻿using FilemanagerDemo.Archivos.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace FilemanagerDemo.Archivos.Infraestructure
 {
     public class LocalFileRepository : FileRepository
     {
-        public void Create(File file)
+        public void Create(FileInfo file)
         {
             System.IO.File.WriteAllBytes("../../emptyFile.txt", new byte[] { });
         }
@@ -23,12 +21,12 @@ namespace FilemanagerDemo.Archivos.Infraestructure
             throw new NotImplementedException();
         }
 
-        public File Read(string name)
+        public FileInfo Read(string name)
         {
             throw new NotImplementedException();
         }
 
-        public File Read()
+        public FileInfo Read()
         {
             throw new NotImplementedException();
         }

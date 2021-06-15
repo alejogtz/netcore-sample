@@ -19,4 +19,5 @@ RUN dotnet publish "FilemanagerDemo.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+VOLUME /storage
 ENTRYPOINT ["dotnet", "FilemanagerDemo.dll"]
