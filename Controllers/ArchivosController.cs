@@ -26,6 +26,8 @@ namespace FilemanagerDemo.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            if (!Directory.Exists(Path.Combine(FileStorage.BaseDirectory, "dotnet/randomfiles")))
+                Directory.CreateDirectory(Path.Combine(FileStorage.BaseDirectory, "dotnet/randomfiles"));
             return Directory.EnumerateFiles(Path.Combine(FileStorage.BaseDirectory, "dotnet/randomfiles"))
                 .Select(str => new FileInfo(str).Name);
         }
