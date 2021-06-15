@@ -20,4 +20,6 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 VOLUME /storage
-ENTRYPOINT ["dotnet", "FilemanagerDemo.dll"]
+# ENTRYPOINT ["dotnet", "FilemanagerDemo.dll"]
+COPY scripts/entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["entrypoint.sh"]
