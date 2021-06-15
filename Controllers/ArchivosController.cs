@@ -92,6 +92,7 @@ namespace FilemanagerDemo.Controllers
         {
             if (System.IO.File.Exists(Path.Combine(FileStorage.BaseDirectory, "dotnet/randomfiles", FileGuid)))
             {
+                System.IO.File.Delete(Path.Combine(FileStorage.BaseDirectory, "dotnet/randomfiles", FileGuid));
                 return Ok();
             }
             return NotFound("¡Archivo no encontrado!");
@@ -101,7 +102,7 @@ namespace FilemanagerDemo.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        [Produces("application/pdf")]
+        //[Produces("application/pdf")]
         [Route("Firmar")]
         public ActionResult Sign([FromForm] string password, [FromForm] PropertiesDocument properties)
         {
